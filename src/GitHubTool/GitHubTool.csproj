@@ -6,7 +6,7 @@
     <RootNamespace>Oolong.GitHub</RootNamespace>
     <PackAsTool>True</PackAsTool>
     <AssemblyName>github</AssemblyName>
-    <PackageId>Oolong.GitHub.CommandLine</PackageId>
+    <PackageId>GitHub.CommandLine</PackageId>
     <Authors>Wu, Ganhao</Authors>
     <RepositoryType>git</RepositoryType>
     <Version>1.0.0</Version>
