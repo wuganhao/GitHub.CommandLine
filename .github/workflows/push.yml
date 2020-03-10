@@ -15,7 +15,7 @@ jobs:
       uses: actions/setup-dotnet@v1.1.0
 
     - name: Build
-      run: dotnet pack --configuration release src/GitHub.sln -o dist\ -p:BUILD_NUMBER=${{ github.run_number }}
+      run: dotnet pack --configuration release src/GitHub.sln -o dist -p:BUILD_NUMBER=${{ github.run_number }}
 
     - name: Push package
       if: github.ref == 'refs/heads/master'
