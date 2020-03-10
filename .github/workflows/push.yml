@@ -23,4 +23,4 @@ jobs:
     - name: Push package
       if: github.ref == 'refs/heads/master'
       run: |
-        dotnet nuget push dist\*.nupkg -k ${{ secrets.nuget_api_key }} --source https://api.nuget.org/v3/index.json
+        nuget push dist\*.nupkg -NoSymbols -source https://api.nuget.org/v3/index.json -apikey ${{ secrets.nuget_api_key }}
