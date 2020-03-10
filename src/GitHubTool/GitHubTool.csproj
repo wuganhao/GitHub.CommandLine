@@ -11,10 +11,13 @@
     <RepositoryType>git</RepositoryType>
     <Version>1.0.0</Version>
     <Version Condition="'$(BUILD_NUMBER)' != ''">$(Version).$(BUILD_NUMBER)</Version>
+    <PackageProjectUrl>https://github.com/wuganhao/GitHub.CommandLine</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/wuganhao/GitHub.CommandLine.git</RepositoryUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="..\..\README.md" Link="README.md" >
+    <Content Include="..\..\README.md" Link="README.md">
       <Pack>true</Pack>
       <PackagePath>\</PackagePath>
     </Content>
