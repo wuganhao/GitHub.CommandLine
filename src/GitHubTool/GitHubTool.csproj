@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>Oolong.GitHub</RootNamespace>
+    <PackAsTool>True</PackAsTool>
+    <AssemblyName>github</AssemblyName>
+    <PackageId>Oolong.GitHub</PackageId>
+    <Authors>Wu, Ganhao</Authors>
+    <RepositoryType>git</RepositoryType>
+    <Version>1.0.0</Version>
+    <Version Condition="'$(BUILD_NUMBER)' != ''">$(Version).$(BUILD_NUMBER)</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GraphQL.Client" Version="1.0.3" />
+    <PackageReference Include="LibGit2Sharp" Version="0.26.2" />
+    <PackageReference Include="System.Linq.Async" Version="4.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CommandLineParser\CommandLineParser.csproj" />
+  </ItemGroup>
+
+</Project>

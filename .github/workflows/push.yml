@@ -1,0 +1,26 @@
+name: Push Build
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@1.0.0
+
+    - name: Setup .NET Core CLI
+      uses: actions/setup-dotnet@v1.1.0
+
+    - name: Setup NuGet
+      uses: warrenbuckley/Setup-Nuget@v1
+
+    - name: Build
+      run: dotnet pack --configuration release src/GitHub.sln -o dist\ -p:BUILD_NUMBER=${{ github.run_number }}
+
+    - name: Remove older packages, Push package
+      if: github.ref == 'refs/heads/master'
+      run: |
+        dotnet nuget push dist\*.nupkg -k ${{ secrets.nuget_api_key }}
