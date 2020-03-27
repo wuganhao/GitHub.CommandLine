@@ -1,6 +1,6 @@
 # GitHub Command
 
-This tool is can be use to clean up unwanted packages from GitHub Package Registry.
+This tool provides several different cli to interact with GitHub server.
 
 ## 1. Pre-requirements
 * [.NET Core 3.0+](https://dotnet.microsoft.com/download/dotnet-core/3.0) is required to run this package.
