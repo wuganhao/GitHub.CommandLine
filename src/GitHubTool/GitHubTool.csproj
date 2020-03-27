@@ -14,7 +14,7 @@
     <PackageProjectUrl>https://github.com/wuganhao/GitHub.CommandLine</PackageProjectUrl>
     <RepositoryUrl>https://github.com/wuganhao/GitHub.CommandLine.git</RepositoryUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-  <PackageReadmeFile>README.md</PackageReadmeFile>
+    <!--<PackageReadmeFile>README.md</PackageReadmeFile>-->
   </PropertyGroup>
 
   <ItemGroup>
