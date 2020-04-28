@@ -44,7 +44,7 @@ namespace Oolong.GitHub {
                  })
                 .Where(bv => bv.Version != null)
                 .Where(bv => bv.Version < currentVersion)
-                .OrderBy(bv => bv.Version)
+                .OrderByDescending(bv => bv.Version)
                 .Select(bv => bv.Branch);
 
             Console.WriteLine($"Start merging...");
