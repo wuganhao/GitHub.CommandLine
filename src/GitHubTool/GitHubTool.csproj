@@ -4,6 +4,8 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <RootNamespace>Oolong.GitHub</RootNamespace>
+    <IsPackable>True</IsPackable>
+    <IsTool>True</IsTool>
     <PackAsTool>True</PackAsTool>
     <AssemblyName>github</AssemblyName>
     <PackageId>GitHub.CommandLine</PackageId>
@@ -19,6 +21,8 @@
 
   <ItemGroup>
     <Content Include="..\..\README.md" Pack="true" PackagePath="" />
+    <Content Include="$(NuGetPackageRoot)\libgit2sharp.nativebinaries\2.0.306\runtimes\linux-x64\native\libgit2-106a5f2.so" Pack="true"
+      PackagePath="tools\netcoreapp3.0\any" />
   </ItemGroup>
 
   <ItemGroup>
