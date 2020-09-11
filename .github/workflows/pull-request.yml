@@ -21,9 +21,11 @@ jobs:
 
     - name: Build
       run: |
-        export VERSION=$(<version)
+        VERSION=$(head -n 1 version)
+        PACKAGE_VERSION=$VERSION-build.${{ github.run_number }}
+        echo "Generating Package with version: $PACKAGE_VERSION ..."
         #export DESCRIPTION=$(<README.md)
-        dotnet build src/GitHub.sln -p:Configuration=Release -o dist -p:Version=$VERSION -p:PackageVersion=$VERSION-build.${{ github.run_number }}
+        dotnet build src/GitHub.sln -p:Configuration=Release -o dist -p:Version=$VERSION -p:PackageVersion=$PACKAGE_VERSION
 
     - name: Upload artifact
       if: "!startsWith(github.ref, 'refs/tags/')"
