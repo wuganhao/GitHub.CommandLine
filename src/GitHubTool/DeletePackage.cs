@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Semver;
 
 namespace WuGanhao.GitHub {
     public enum DeleteMode {
@@ -63,15 +64,15 @@ namespace WuGanhao.GitHub {
                     versionStr = Console.In.ReadLine();
                 }
 
-                if (!System.Version.TryParse(versionStr, out Version versionToDel)) {
+                if (!SemVersion.TryParse(versionStr, out SemVersion versionToDel)) {
                     throw new InvalidOperationException($"Version parameter is required when mode is current");
                 }
 
                 checkVersion = (v) => {
-                    if (!System.Version.TryParse(v?.version, out Version version)) {
+                    if (!SemVersion.TryParse(v?.version, out SemVersion version)) {
                         return false;
                     }
-                    return version.Major == versionToDel.Major && version.Minor == versionToDel.Minor && version.Build == versionToDel.Build;
+                    return version.Major == versionToDel.Major && version.Minor == versionToDel.Minor && version.Patch == versionToDel.Patch;
                 };
             } else {
                 checkVersion = (v) => true;
@@ -79,7 +80,7 @@ namespace WuGanhao.GitHub {
 
             await foreach (var version in client.GetPackageVersions(owner, repo, this.Package)
                 ?.Where(checkVersion)
-                ?.OrderByDescending(v => System.Version.Parse(v.version))
+                ?.OrderByDescending(v => SemVersion.Parse(v.version))
                 ?.Skip(this.VersionToKeep)) {
                 Console.WriteLine($"Deleting package:{this.Package}, version: {version.version}");
                 client.DeletePackageVersion(version.id);

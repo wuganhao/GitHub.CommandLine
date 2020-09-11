@@ -26,6 +26,7 @@
   <ItemGroup>
     <PackageReference Include="GraphQL.Client" Version="1.0.3" />
     <PackageReference Include="LibGit2Sharp" Version="0.26.2" />
+    <PackageReference Include="semver" Version="2.0.6" />
     <PackageReference Include="System.Linq.Async" Version="4.0.0" />
     <PackageReference Include="WuGanhao.CommandLineParser" Version="0.3.0" />
   </ItemGroup>
