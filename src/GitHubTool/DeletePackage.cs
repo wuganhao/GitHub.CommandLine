@@ -1,9 +1,10 @@
-﻿using Oolong.CommandLineParser;
+﻿using WuGanhao.CommandLineParser;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Semver;
 
-namespace Oolong.GitHub {
+namespace WuGanhao.GitHub {
     public enum DeleteMode {
         Current,
         All,
@@ -32,6 +33,9 @@ namespace Oolong.GitHub {
 
         [CommandOption("version", "v", "Package version to delete, or put a - to read from standard input")]
         public string Version { get; set; }
+
+        [CommandOption("prerelease-only", "e", "Consider prerelease version only, not deleting any released version")]
+        public bool PreReleaseOnly { get; set; } = false;
 
         public override async Task<bool> Run() {
             GitHubClient client = new GitHubClient(this.Token);
@@ -63,15 +67,20 @@ namespace Oolong.GitHub {
                     versionStr = Console.In.ReadLine();
                 }
 
-                if (!System.Version.TryParse(versionStr, out Version versionToDel)) {
+                if (!SemVersion.TryParse(versionStr, out SemVersion versionToDel)) {
                     throw new InvalidOperationException($"Version parameter is required when mode is current");
                 }
 
                 checkVersion = (v) => {
-                    if (!System.Version.TryParse(v?.version, out Version version)) {
+                    if (!SemVersion.TryParse(v?.version, out SemVersion version)) {
                         return false;
                     }
-                    return version.Major == versionToDel.Major && version.Minor == versionToDel.Minor && version.Build == versionToDel.Build;
+
+                    if (this.PreReleaseOnly && !string.IsNullOrEmpty(version.Prerelease)) {
+                        return false;
+                    }
+
+                    return version.Major == versionToDel.Major && version.Minor == versionToDel.Minor && version.Patch == versionToDel.Patch && version.Build == versionToDel.Build;
                 };
             } else {
                 checkVersion = (v) => true;
@@ -79,7 +88,7 @@ namespace Oolong.GitHub {
 
             await foreach (var version in client.GetPackageVersions(owner, repo, this.Package)
                 ?.Where(checkVersion)
-                ?.OrderByDescending(v => System.Version.Parse(v.version))
+                ?.OrderByDescending(v => SemVersion.Parse(v.version))
                 ?.Skip(this.VersionToKeep)) {
                 Console.WriteLine($"Deleting package:{this.Package}, version: {version.version}");
                 client.DeletePackageVersion(version.id);

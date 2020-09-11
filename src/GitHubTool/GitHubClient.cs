@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace Oolong.GitHub {
+namespace WuGanhao.GitHub {
     [DebuggerDisplay("{version}")]
     public class PackageVersion {
         public string version { get; set; }
@@ -29,7 +29,7 @@ namespace Oolong.GitHub {
         }
 
         public class Repository {
-            public RegistryPackages registryPackages { get; set; }
+            public RegistryPackages packages { get; set; }
         }
         private GraphQLClient _client = new GraphQLClient("https://api.github.com/graphql");
         private const string ACCEPT_DELETE_PACKAGE = "application/vnd.github.package-deletes-preview+json";
@@ -43,7 +43,7 @@ namespace Oolong.GitHub {
 
         public async IAsyncEnumerable<PackageVersion> GetPackageVersions(string owner, string repository, string package, int maxCount = 100) {
             string query = $@"query {{ repository(owner: ""{owner}"", name:""{repository}"") {{
-                        registryPackages (name: ""{package}"", first: 1) {{
+                        packages (names: ""{package}"", first: 1) {{
                             nodes {{
                                 versions(last: {maxCount}) {{ nodes {{ version, id }}
                                 }} }} }} }} }}";
@@ -54,7 +54,7 @@ namespace Oolong.GitHub {
             }
 
             Repository repo = resp.GetDataFieldAs<Repository>("repository");
-            foreach(PackageVersion version in repo?.registryPackages?.nodes?.FirstOrDefault()?.versions?.nodes) {
+            foreach(PackageVersion version in repo?.packages?.nodes?.FirstOrDefault()?.versions?.nodes) {
                 yield return version;
             }
         }

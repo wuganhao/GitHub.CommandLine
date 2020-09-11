@@ -1,0 +1,30 @@
+name: Release Tagging
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup .NET Core CLI
+      uses: actions/setup-dotnet@v1.1.0
+
+    - name: extract tag name
+      if: startswith(github.ref, 'refs/tags/')
+      uses: olegtarasov/get-tag@v2
+      id: tagname
+      with:
+        tagregex: "([0-9\\.]+.*)"  # optional. returns specified group text as tag name. full tag string is returned if regex is not defined.
+        tagregexgroup: 1 # optional. default is 1.
+
+    - name: Build
+      run: |
+        dotnet pack  src/GitHub.sln -p:Configuration=Release -p:Version=${{ env.git_tag_name }} -p:PackageVersion=${{ env.git_tag_name }} -o dist
+        dotnet nuget push dist/*.nupkg -k ${{ secrets.nuget_api_key }} --source https://api.nuget.org/v3/index.json

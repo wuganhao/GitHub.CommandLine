@@ -1,10 +1,20 @@
 # GitHub Command
 
-This tool provides several different cli to interact with GitHub server.
+This tool provides several different cli to interact with GitHub server. 
 
 ## 1. Pre-requirements
 * [.NET Core 3.0+](https://dotnet.microsoft.com/download/dotnet-core/3.0) is required to run this package.
 * This tool provides as an .NetCore 3.0 tool package.
+
+## 2. Release Notes
+### 2.0.0
+* *NEW*: `delete-package` command now allow to delete only pre-release versions.
+```bash
+# This command line with only delete pre-release versions (eg: 2.0.0-prerelease, 2.2.0-rc1, 2.2.0-build.22), But not release version (2.0.0)
+github delete-package -t {YOUR_GITHUB_PAT} -o wuganhao -r GitHub.CommandLine -p GitHub.CommandLine -k 3 -m current -v 2.0.0 --prerelease-only
+```
+* *FIX*: Update according to GitHub GraphQL api changes
+* *FIX*: Use SemVersion 2.0 for version comparing
 
 ## 2. Install GitHub-Tools
 
