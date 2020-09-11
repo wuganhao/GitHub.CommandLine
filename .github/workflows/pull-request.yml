@@ -23,7 +23,7 @@ jobs:
       run: |
         export VERSION=$(<version)
         #export DESCRIPTION=$(<README.md)
-        dotnet build src/GitHub.sln -p:Configuration=Release -o dist -p:BUILD_NUMBER=${{ github.run_number }} -p:Version=$VERSION
+        dotnet build src/GitHub.sln -p:Configuration=Release -o dist -p:Version=$VERSION -p:PackageVersion=$VERSION-build.${{ github.run_number }}
 
     - name: Upload artifact
       if: "!startsWith(github.ref, 'refs/tags/')"

@@ -11,8 +11,6 @@
     <PackageId>GitHub.CommandLine</PackageId>
     <Authors>Wu, Ganhao</Authors>
     <RepositoryType>git</RepositoryType>
-    <Version Condition="'$(Version)' != ''">1.0.0</Version>
-    <Version Condition="'$(BUILD_NUMBER)' != ''">$(Version).$(BUILD_NUMBER)</Version>
     <PackageProjectUrl>https://github.com/wuganhao/GitHub.CommandLine</PackageProjectUrl>
     <RepositoryUrl>https://github.com/wuganhao/GitHub.CommandLine.git</RepositoryUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
