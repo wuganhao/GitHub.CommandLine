@@ -25,3 +25,9 @@ jobs:
         export DESCRIPTION=$(<README.md)
         dotnet build src/GitHub.sln -p:Configuration=Release -o dist -p:BUILD_NUMBER=${{ github.run_number }} -p:Version=$VERSION -p:Description=$DESCRIPTION
 
+    - name: Upload artifact
+      if: "!startsWith(github.ref, 'refs/tags/')"
+      uses: actions/upload-artifact@v2
+      with:
+        name: nuget
+        path: dist/*.nupkg
