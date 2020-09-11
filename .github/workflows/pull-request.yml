@@ -26,6 +26,7 @@ jobs:
         echo "Generating Package with version: $PACKAGE_VERSION ..."
         #export DESCRIPTION=$(<README.md)
         dotnet build src/GitHub.sln -p:Configuration=Release -o dist -p:Version=$VERSION -p:PackageVersion=$PACKAGE_VERSION
+        dotnet pack  src/GitHub.sln -p:Configuration=Release -o dist -p:Version=$VERSION -p:PackageVersion=$PACKAGE_VERSION
 
     - name: Upload artifact
       if: "!startsWith(github.ref, 'refs/tags/')"
