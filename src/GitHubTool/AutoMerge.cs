@@ -1,12 +1,12 @@
 ﻿using LibGit2Sharp;
-using Oolong.CommandLineParser;
+using WuGanhao.CommandLineParser;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Oolong.GitHub {
+namespace WuGanhao.GitHub {
     public enum ConflictMode {
         Skip,
         Break,
@@ -51,7 +51,7 @@ namespace Oolong.GitHub {
 
             Signature merger = repository.Config.BuildSignature(DateTimeOffset.Now);
 
-            foreach (var b in branches) {
+            foreach (Branch b in branches) {
                 if (repository.Index.Conflicts.Any()) {
                     Console.WriteLine($"!!! Working folder already in conflicted status, please resolve it first.");
                     return false;

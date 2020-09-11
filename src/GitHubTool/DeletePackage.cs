@@ -1,9 +1,9 @@
-﻿using Oolong.CommandLineParser;
+﻿using WuGanhao.CommandLineParser;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Oolong.GitHub {
+namespace WuGanhao.GitHub {
     public enum DeleteMode {
         Current,
         All,

@@ -1,9 +1,9 @@
-﻿using Oolong.CommandLineParser;
+﻿using WuGanhao.CommandLineParser;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
 
-namespace Oolong.GitHub {
+namespace WuGanhao.GitHub {
     class Program
     {
         [SubCommand(typeof(DeletePackage), "delete-package", "Deletes package from GitHub")]

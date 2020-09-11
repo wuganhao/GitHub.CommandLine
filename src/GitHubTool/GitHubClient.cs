@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace Oolong.GitHub {
+namespace WuGanhao.GitHub {
     [DebuggerDisplay("{version}")]
     public class PackageVersion {
         public string version { get; set; }
