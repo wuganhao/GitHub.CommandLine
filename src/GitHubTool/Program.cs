@@ -4,18 +4,14 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 
 namespace WuGanhao.GitHub {
+    [SubCommand(typeof(DeletePackage), "delete-package", "Deletes package from GitHub")]
+    [SubCommand(typeof(AutoMerge), "auto-merge", "Automatically merge all previous version")]
+    [Description("Command line tool for manipulating GitHub packages")]
     class Program
     {
-        [SubCommand(typeof(DeletePackage), "delete-package", "Deletes package from GitHub")]
-        [SubCommand(typeof(AutoMerge),     "auto-merge",     "Automatically merge all previous version")]
-        [Description("Command line tool for manipulating GitHub packages")]
-        public class CommandOptions
-        {
-        }
-
         static async Task<int> Main(string[] args)
         {
-            CommandLineParser<CommandOptions> CmdLineParser = new CommandLineParser<CommandOptions>();
+            CommandLineParser<Program> CmdLineParser = new CommandLineParser<Program>();
 
             try
             {
