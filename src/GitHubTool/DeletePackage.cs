@@ -34,6 +34,9 @@ namespace WuGanhao.GitHub {
         [CommandOption("version", "v", "Package version to delete, or put a - to read from standard input")]
         public string Version { get; set; }
 
+        [CommandOption("prerelease-only", "e", "Consider prerelease version only, not deleting any released version")]
+        public bool PreReleaseOnly { get; set; } = false;
+
         public override async Task<bool> Run() {
             GitHubClient client = new GitHubClient(this.Token);
 
@@ -72,7 +75,12 @@ namespace WuGanhao.GitHub {
                     if (!SemVersion.TryParse(v?.version, out SemVersion version)) {
                         return false;
                     }
-                    return version.Major == versionToDel.Major && version.Minor == versionToDel.Minor && version.Patch == versionToDel.Patch;
+
+                    if (this.PreReleaseOnly && !string.IsNullOrEmpty(version.Prerelease)) {
+                        return false;
+                    }
+
+                    return version.Major == versionToDel.Major && version.Minor == versionToDel.Minor && version.Patch == versionToDel.Patch && version.Build == versionToDel.Build;
                 };
             } else {
                 checkVersion = (v) => true;
