@@ -20,5 +20,8 @@ jobs:
       uses: actions/setup-dotnet@v1.1.0
 
     - name: Build
-      run: dotnet build src/GitHub.sln -p:Configuration=Release -o dist -p:BUILD_NUMBER=${{ github.run_number }}
+      run: |
+        export VERSION=$(<version)
+        export DESCRIPTION=$(<README.md)
+        dotnet build src/GitHub.sln -p:Configuration=Release -o dist -p:BUILD_NUMBER=${{ github.run_number }} -p:Version=$VERSION -p:Description=$DESCRIPTION
 
