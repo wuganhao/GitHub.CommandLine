@@ -21,7 +21,7 @@ jobs:
 
     - name: Build
       run: |
-        VERSION=$(head -n 1 version)
+        VERSION=$(head -n 1 src/version)
         PACKAGE_VERSION=$VERSION-build.${{ github.run_number }}
         echo "Generating Package with version: $PACKAGE_VERSION ..."
         #export DESCRIPTION=$(<README.md)
