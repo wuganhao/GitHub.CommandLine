@@ -26,5 +26,5 @@ jobs:
 
     - name: Build
       run: |
-        dotnet pack  src/GitHub.sln -p:Configuration=Release -p:Version=${{ env.git_tag_name }} -p:PackageVersion=${{ env.git_tag_name }} -o dist
-        dotnet nuget push dist/*.nupkg -k ${{ secrets.nuget_api_key }} --source https://api.nuget.org/v3/index.json
+        dotnet pack  src\GitHub.sln -p:Configuration=Release -p:Version=${{ env.git_tag_name }} -p:PackageVersion=${{ env.git_tag_name }} -o dist
+        dotnet nuget push dist\*.nupkg -k ${{ secrets.nuget_api_key }} --source https://api.nuget.org/v3/index.json
