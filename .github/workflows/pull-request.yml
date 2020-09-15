@@ -3,14 +3,10 @@ name: Pull Request Build
 on:
   pull_request:
     types: [assigned, opened, synchronize, reopened]
-  push:
-    branches-ignore:
-      - 'feature/*' # Ignore build feature branch on push; feature branches will be build only for pull requests.
-      - 'Feature/*'
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout
@@ -21,12 +17,13 @@ jobs:
 
     - name: Build
       run: |
-        VERSION=$(head -n 1 src/version)
-        PACKAGE_VERSION=$VERSION-build.${{ github.run_number }}
-        echo "Generating Package with version: $PACKAGE_VERSION ..."
-        #export DESCRIPTION=$(<README.md)
-        dotnet build src/GitHub.sln -p:Configuration=Release -o dist -p:Version=$VERSION -p:PackageVersion=$PACKAGE_VERSION
-        dotnet pack  src/GitHub.sln -p:Configuration=Release -o dist -p:Version=$VERSION -p:PackageVersion=$PACKAGE_VERSION
+        $VERSION = Get-Content 'version' -TotalCount 1
+        $PACKAGE_VERSION = "$VERSION-build.${{ github.run_number }}"
+        Write-Output "Generating Package with version: $PACKAGE_VERSION ..."
+        $DESCRIPTION = Get-Content 'README.MD'
+        $DESCRIPTION = $DESCRIPTION -join '\n\r'
+        dotnet build src/GitHub.sln -p:Configuration=Release -o dist -p:Version=$VERSION -p:PackageVersion=$PACKAGE_VERSION -p:Description="$DESCRIPTION"
+        dotnet pack  src/GitHub.sln -p:Configuration=Release -o dist -p:Version=$VERSION -p:PackageVersion=$PACKAGE_VERSION -p:Description="$DESCRIPTION"
 
     - name: Upload artifact
       if: "!startsWith(github.ref, 'refs/tags/')"

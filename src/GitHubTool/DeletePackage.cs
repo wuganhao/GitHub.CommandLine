@@ -34,7 +34,7 @@ namespace WuGanhao.GitHub {
         [CommandOption("version", "v", "Package version to delete, or put a - to read from standard input")]
         public string Version { get; set; }
 
-        [CommandOption("prerelease-only", "e", "Consider prerelease version only, not deleting any released version")]
+        [CommandSwitch("prerelease-only", "e", "Consider prerelease version only, not deleting any released version")]
         public bool PreReleaseOnly { get; set; } = false;
 
         public override async Task<bool> Run() {

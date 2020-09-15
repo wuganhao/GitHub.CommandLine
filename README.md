@@ -15,7 +15,8 @@ github delete-package -t {YOUR_GITHUB_PAT} -o wuganhao -r GitHub.CommandLine -p 
 ```
 * *FIX*: Update according to GitHub GraphQL api changes
 * *FIX*: Use SemVersion 2.0 for version comparing
-
+### 2.1.0
+* *FIX*: `--prerelease-only` is a switch instead of option
 ## 2. Install GitHub-Tools
 
 To install this tool. please run following command:
