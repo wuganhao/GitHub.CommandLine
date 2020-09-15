@@ -17,7 +17,7 @@ jobs:
 
     - name: Build
       run: |
-        $VERSION = Get-Content 'version' -TotalCount 1
+        $VERSION = Get-Content 'src\version' -TotalCount 1
         $PACKAGE_VERSION = "$VERSION-build.${{ github.run_number }}"
         Write-Output "Generating Package with version: $PACKAGE_VERSION ..."
         $DESCRIPTION = Get-Content 'README.MD'
