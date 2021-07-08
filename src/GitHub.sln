@@ -10,6 +10,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{BCE95641-8
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHubActions", "GitHubActions", "{9060FE82-6F4C-4D84-965F-EA696B4064FE}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\pull-request.yml = ..\.github\workflows\pull-request.yml
+		..\.github\workflows\tagging.yml = ..\.github\workflows\tagging.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
