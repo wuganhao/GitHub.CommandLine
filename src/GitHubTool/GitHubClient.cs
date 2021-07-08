@@ -54,7 +54,13 @@ namespace WuGanhao.GitHub {
             }
 
             Repository repo = resp.GetDataFieldAs<Repository>("repository");
-            foreach(PackageVersion version in repo?.packages?.nodes?.FirstOrDefault()?.versions?.nodes) {
+            PackageVersion[] versions = repo?.packages?.nodes?.FirstOrDefault()?.versions?.nodes;
+
+            if (versions == null) {
+                yield break;
+            }
+
+            foreach (PackageVersion version in versions) {
                 yield return version;
             }
         }
