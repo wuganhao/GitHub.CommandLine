@@ -16,15 +16,12 @@ jobs:
     - name: Setup .NET Core CLI
       uses: actions/setup-dotnet@v1.1.0
 
-    - name: extract tag name
-      if: startswith(github.ref, 'refs/tags/')
-      uses: olegtarasov/get-tag@v2
-      id: tagname
-      with:
-        tagregex: "([0-9\\.]+.*)"  # optional. returns specified group text as tag name. full tag string is returned if regex is not defined.
-        tagregexgroup: 1 # optional. default is 1.
-
     - name: Build
       run: |
-        dotnet pack  src\GitHub.sln -p:Configuration=Release -p:Version=${{ env.git_tag_name }} -p:PackageVersion=${{ env.git_tag_name }} -o dist
+        $Tag = "${{ github.ref }}" -replace '(refs/tags/)(.+)', '$2'
+        $Version = $Tag -replace '((\d+)(\.\d+){1,3})(-.+|)', '$1'
+        $InformationalVersion = "$Tag SHA-${{ github.SHA }}"
+        $ProductVersion = "$InformationalVersion"
+        $PackageVersion = $Tag
+        dotnet pack  src\GitHub.sln -p:Configuration=Release -p:Version=$Version -p:PackageVersion=$PackageVersion -o dist
         dotnet nuget push dist\*.nupkg -k ${{ secrets.nuget_api_key }} --source https://api.nuget.org/v3/index.json
